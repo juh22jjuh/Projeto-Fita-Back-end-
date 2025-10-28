@@ -8,7 +8,7 @@ class Database {
         // Garante que a conexão seja criada apenas uma vez
         if (!isset(self::$pdo)) {
             $host = 'localhost';
-            $db   = 'meu_projeto_db';
+            $db   = 'fita-bd';
             $user = 'root';
             $pass = ''; // <-- Coloque sua senha aqui, se houver
             $charset = 'utf8mb4';

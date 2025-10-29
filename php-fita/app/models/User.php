@@ -61,5 +61,16 @@ class User {
         $stmt = $this->pdo->prepare("UPDATE users SET perfil_completo = 1 WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+     public function updatePassword($id, $hash_senha) {
+        $stmt = $this->pdo->prepare("UPDATE users SET senha = ? WHERE id = ?");
+        return $stmt->execute([$hash_senha, $id]);
+    }
+
+      public function findPasswordResetByToken($token) {
+        $stmt = $this->pdo->prepare("SELECT * FROM password_resets WHERE token = ? AND expires_at > NOW()");
+        $stmt->execute([$token]);
+        return $stmt->fetch();
+    }
 }
 ?>

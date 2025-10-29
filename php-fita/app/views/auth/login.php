@@ -16,6 +16,7 @@ require_once __DIR__ . '/../templates/header.php';
     <button type="submit">Entrar</button>
 </form>
 <p>Não tem conta? <a href="/cadastro">Cadastre-se</a></p>
+<p><a href="/esqueci-senha">Esqueci minha senha</a></p> <!-- NOVO LINK -->
 
 <?php 
 require_once __DIR__ . '/../templates/footer.php'; 

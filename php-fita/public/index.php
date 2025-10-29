@@ -62,13 +62,27 @@ switch ($url) {
             $profileController->showCompleteForm();
         }
         break;
-    
+
     // (Exemplo de Rota de Admin)
     case 'admin/usuarios':
         // Protege a rota chamando o 'checkRole' antes da ação
         $dashboardController->checkRole(['Administrador']); // Apenas Admins
         // (Aqui você chamaria o AdminController)
         echo "Página de Gerenciar Usuários (Apenas Admins)";
+        break;
+    case 'esqueci-senha':
+        if ($method == 'POST') {
+            $authController->doForgotPassword();
+        } else {
+            $authController->showForgotPassword();
+        }
+        break;
+    case 'redefinir-senha':
+        if ($method == 'POST') {
+            $authController->doResetPassword();
+        } else {
+            $authController->showResetPassword();
+        }
         break;
 
     default:

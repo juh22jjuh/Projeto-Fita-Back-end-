@@ -81,4 +81,5 @@ class AuthController {
             return ['status' => 401, 'message' => 'Email ou senha inválidos.'];
         }
     }
+
 }

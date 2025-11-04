@@ -1,14 +1,16 @@
 <?php
-// /controllers/ParticipanteEnsinoMedioController.php
+// /controllers/highSchoolParticipantController.php
 
 // Inclui o middleware (precisamos dele nesta classe)
-require_once __DIR__ . '/../auth/AuthMiddleware.php';
+require_once __DIR__ . '/../routes/auth/authMiddleware.php';
 
-class ParticipanteEnsinoMedioController {
+class HighSchoolParticipantController {
     private $model;
+    private $authMiddleware;
 
     public function __construct($model) {
         $this->model = $model;
+        $this->authMiddleware = new AuthMiddleware();
     }
 
     public function handleRequest() {
@@ -33,7 +35,7 @@ class ParticipanteEnsinoMedioController {
                     break;
                 
                 case 'POST':
-                    AuthMiddleware::checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
+                    $this->authMiddleware->checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
                     
                     $data = json_decode(file_get_contents('php://input'), true);
                     if (empty($data['nome_completo']) || empty($data['email'])) {
@@ -45,7 +47,7 @@ class ParticipanteEnsinoMedioController {
                     break;
 
                 case 'PUT':
-                    AuthMiddleware::checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
+                    $this->authMiddleware->checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
 
                     if (!$id) {
                         $this->jsonResponse(['error' => 'ID é obrigatório para atualizar'], 400);
@@ -60,7 +62,7 @@ class ParticipanteEnsinoMedioController {
                     break;
 
                 case 'DELETE':
-                    AuthMiddleware::checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
+                    $this->authMiddleware->checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
 
                     if (!$id) {
                         $this->jsonResponse(['error' => 'ID é obrigatório para deletar'], 400);
@@ -86,4 +88,3 @@ class ParticipanteEnsinoMedioController {
         exit;
     }
 }
-?>

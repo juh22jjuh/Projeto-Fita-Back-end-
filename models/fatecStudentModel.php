@@ -1,7 +1,7 @@
 <?php
-// /models/AlunoFatec.php
+// /models/fatecStudentModel.php
 
-class AlunoFatec {
+class FatecStudentModel {
     private $pdo;
 
     public function __construct($pdo) {
@@ -65,4 +65,3 @@ class AlunoFatec {
         return $stmt->rowCount();
     }
 }
-?>

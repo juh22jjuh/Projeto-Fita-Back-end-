@@ -1,14 +1,16 @@
 <?php
-// /controllers/AlunoFatecController.php
+// /controllers/generalCommunityParticipantController.php
 
-// Inclui o middleware de autenticação
-require_once __DIR__ . '/../auth/AuthMiddleware.php';
+// Inclui o middleware
+require_once __DIR__ . '/../routes/auth/authMiddleware.php';
 
-class AlunoFatecController {
+class GeneralCommunityParticipantController {
     private $model;
+    private $authMiddleware;
 
     public function __construct($model) {
         $this->model = $model;
+        $this->authMiddleware = new AuthMiddleware();
     }
 
     public function handleRequest() {
@@ -18,13 +20,13 @@ class AlunoFatecController {
         try {
             switch ($method) {
                 case 'GET':
-                    // GET (leitura) é público
+                    // GET (leitura) continua público
                     if ($id) {
                         $data = $this->model->getById($id);
-                        if ($data) {
+                         if ($data) {
                             $this->jsonResponse($data);
                         } else {
-                            $this->jsonResponse(['error' => 'Aluno(a) Fatec não encontrado(a)'], 404);
+                            $this->jsonResponse(['error' => 'Participante (CG) não encontrado'], 404);
                         }
                     } else {
                         $data = $this->model->getAll();
@@ -33,40 +35,40 @@ class AlunoFatecController {
                     break;
                 
                 case 'POST':
-                    AuthMiddleware::checkAuth(); // <-- Rota Protegida
+                    $this->authMiddleware->checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
                     
                     $data = json_decode(file_get_contents('php://input'), true);
-                    if (empty($data['nome_completo']) || empty($data['email'])) {
+                     if (empty($data['nome_completo']) || empty($data['email'])) {
                         $this->jsonResponse(['error' => 'Nome completo e Email são obrigatórios'], 400);
                     }
                     
                     $newId = $this->model->create($data);
-                    $this->jsonResponse(['id' => $newId, 'message' => 'Aluno(a) Fatec criado(a) com sucesso'], 201);
+                    $this->jsonResponse(['id' => $newId, 'message' => 'Participante (CG) criado com sucesso'], 201);
                     break;
 
                 case 'PUT':
-                    AuthMiddleware::checkAuth(); // <-- Rota Protegida
+                    $this->authMiddleware->checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
 
                     if (!$id) {
-                        $this->jsonResponse(['error' => 'ID é obrigatório para atualizar'], 400);
+                         $this->jsonResponse(['error' => 'ID é obrigatório para atualizar'], 400);
                     }
                     $data = json_decode(file_get_contents('php://input'), true);
                      if (empty($data['nome_completo']) || empty($data['email'])) {
                         $this->jsonResponse(['error' => 'Nome completo e Email são obrigatórios'], 400);
                     }
-
+                    
                     $this->model->update($id, $data);
-                    $this->jsonResponse(['id' => $id, 'message' => 'Aluno(a) Fatec atualizado(a) com sucesso']);
+                    $this->jsonResponse(['id' => $id, 'message' => 'Participante (CG) atualizado com sucesso']);
                     break;
 
                 case 'DELETE':
-                    AuthMiddleware::checkAuth(); // <-- Rota Protegida
+                    $this->authMiddleware->checkAuth(); // <-- CHECAGEM DE AUTENTICAÇÃO
 
                     if (!$id) {
                         $this->jsonResponse(['error' => 'ID é obrigatório para deletar'], 400);
                     }
                     $this->model->delete($id);
-                    $this->jsonResponse(['id' => $id, 'message' => 'Aluno(a) Fatec deletado(a) com sucesso']);
+                    $this->jsonResponse(['id' => $id, 'message' => 'Participante (CG) deletado com sucesso']);
                     break;
 
                 default:
@@ -80,11 +82,9 @@ class AlunoFatecController {
         }
     }
 
-    // Função auxiliar para enviar respostas JSON
     private function jsonResponse($data, $statusCode = 200) {
         http_response_code($statusCode);
         echo json_encode($data);
         exit;
     }
 }
-?>

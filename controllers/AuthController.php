@@ -1,12 +1,12 @@
 <?php
-// controllers/AuthController.php
-require_once __DIR__ . '/../models/Usuario.php';
+// controllers/authController.php
+require_once __DIR__ . '/../models/userModel.php';
 
 class AuthController {
     private $usuarioModel;
 
     public function __construct() {
-        $this->usuarioModel = new Usuario();
+        $this->usuarioModel = new UserModel();
     }
 
     public function register($data) {
@@ -55,7 +55,9 @@ class AuthController {
             $this->usuarioModel->resetLock($usuario['email']);
 
             // 4. Iniciar Sessão
-            session_start();
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
             $_SESSION['user_id'] = $usuario['id'];
             $_SESSION['nivel_acesso'] = $usuario['nivel_acesso'];
             $_SESSION['last_activity'] = time(); // Para o timeout

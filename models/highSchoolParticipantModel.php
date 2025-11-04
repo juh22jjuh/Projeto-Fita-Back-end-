@@ -1,7 +1,7 @@
 <?php
-// /models/ParticipanteEnsinoMedio.php
+// /models/highSchoolParticipantModel.php
 
-class ParticipanteEnsinoMedio {
+class HighSchoolParticipantModel {
     private $pdo;
 
     // Recebe a conexão PDO quando é criado
@@ -66,4 +66,3 @@ class ParticipanteEnsinoMedio {
         return $stmt->rowCount();
     }
 }
-?>

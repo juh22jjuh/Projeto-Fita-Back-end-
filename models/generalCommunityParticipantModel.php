@@ -1,7 +1,7 @@
 <?php
-// /models/ParticipanteComunidadeGeral.php
+// /models/generalCommunityParticipantModel.php
 
-class ParticipanteComunidadeGeral {
+class GeneralCommunityParticipantModel {
     private $pdo;
 
     public function __construct($pdo) {
@@ -63,4 +63,3 @@ class ParticipanteComunidadeGeral {
         return $stmt->rowCount();
     }
 }
-?>

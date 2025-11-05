@@ -16,6 +16,17 @@ class UserModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function updatePassword($email, $senhaHash) {
+    $stmt = $this->conn->prepare("UPDATE usuarios SET senha = ?, tentativas_falhas = 0, bloqueado_ate = NULL WHERE email = ?");
+    return $stmt->execute([$senhaHash, $email]);
+}
+
+public function emailExists($email) {
+    $stmt = $this->conn->prepare("SELECT id FROM usuarios WHERE email = ?");
+    $stmt->execute([$email]);
+    return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+}
+
     public function createUser($nome, $email, $senhaHash, $nivel) {
         // Insere o usuário
         $stmt = $this->conn->prepare("INSERT INTO usuarios (nome, email, senha, nivel_acesso) VALUES (?, ?, ?, ?)");

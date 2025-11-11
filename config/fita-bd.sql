@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Tempo de geração: 11/11/2025 às 13:39
+=======
+-- Tempo de geração: 11/11/2025 às 12:20
+>>>>>>> 9182ad2510c01346c2d1fc0c97a7df826f49ffc5
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -24,6 +28,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
 -- Estrutura para tabela `eventos`
 --
 
@@ -61,6 +66,12 @@ CREATE TABLE `materiais_evento` (
 --
 
 CREATE TABLE `perfis` (
+=======
+-- Estrutura para tabela `perfis`
+--
+
+CREATE TABLE IF NOT EXISTS `perfis` (
+>>>>>>> 9182ad2510c01346c2d1fc0c97a7df826f49ffc5
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `telefone` varchar(20) DEFAULT NULL,
@@ -75,13 +86,47 @@ CREATE TABLE `perfis` (
 INSERT INTO `perfis` (`id`, `usuario_id`, `telefone`, `instituicao`, `perfil_completo`) VALUES
 (2, 2, NULL, NULL, 0);
 
+<<<<<<< HEAD
+=======
+
+--
+-- Estrutura para tabela `atividades`
+--
+
+CREATE TABLE IF NOT EXISTS atividades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    data_hora_inicio DATETIME,
+    data_hora_fim DATETIME,
+    local VARCHAR(255),
+    palestrante_nome VARCHAR(255),
+    vagas_disponiveis INT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Índices de tabela `atividades`
+--
+ALTER TABLE `atividades`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de tabela `atividades`
+--
+ALTER TABLE `atividades`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+>>>>>>> 9182ad2510c01346c2d1fc0c97a7df826f49ffc5
 -- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `usuarios`
 --
 
+<<<<<<< HEAD
 CREATE TABLE `usuarios` (
+=======
+CREATE TABLE IF NOT EXISTS `usuarios` (
+>>>>>>> 9182ad2510c01346c2d1fc0c97a7df826f49ffc5
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -104,6 +149,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `nivel_acesso`, `tentati
 --
 
 --
+<<<<<<< HEAD
 -- Índices de tabela `eventos`
 --
 ALTER TABLE `eventos`
@@ -118,6 +164,8 @@ ALTER TABLE `materiais_evento`
   ADD KEY `evento_id` (`evento_id`);
 
 --
+=======
+>>>>>>> 9182ad2510c01346c2d1fc0c97a7df826f49ffc5
 -- Índices de tabela `perfis`
 --
 ALTER TABLE `perfis`
@@ -136,6 +184,7 @@ ALTER TABLE `usuarios`
 --
 
 --
+<<<<<<< HEAD
 -- AUTO_INCREMENT de tabela `eventos`
 --
 ALTER TABLE `eventos`
@@ -148,6 +197,8 @@ ALTER TABLE `materiais_evento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+=======
+>>>>>>> 9182ad2510c01346c2d1fc0c97a7df826f49ffc5
 -- AUTO_INCREMENT de tabela `perfis`
 --
 ALTER TABLE `perfis`
@@ -164,6 +215,7 @@ ALTER TABLE `usuarios`
 --
 
 --
+<<<<<<< HEAD
 -- Restrições para tabelas `eventos`
 --
 ALTER TABLE `eventos`
@@ -176,6 +228,8 @@ ALTER TABLE `materiais_evento`
   ADD CONSTRAINT `materiais_evento_ibfk_1` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE;
 
 --
+=======
+>>>>>>> 9182ad2510c01346c2d1fc0c97a7df826f49ffc5
 -- Restrições para tabelas `perfis`
 --
 ALTER TABLE `perfis`

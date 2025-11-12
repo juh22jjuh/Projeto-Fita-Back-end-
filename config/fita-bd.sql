@@ -28,6 +28,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+
+
+-- Tabela para check-ins
+CREATE TABLE IF NOT EXISTS `checkins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) NOT NULL,
+  `evento_id` int(11) NOT NULL,
+  `qr_code_token` varchar(255) NOT NULL UNIQUE,
+  `data_hora_checkin` datetime DEFAULT NULL,
+  `data_hora_checkout` datetime DEFAULT NULL,
+  `status` enum('presente','ausente','atrasado') DEFAULT 'ausente',
+  `minutos_presente` int(11) DEFAULT 0,
+  `criado_em` timestamp DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Tabela para configurações de certificado
+CREATE TABLE IF NOT EXISTS `configuracoes_certificado` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `evento_id` int(11) NOT NULL,
+  `presenca_minima` decimal(5,2) DEFAULT 75.00,
+  `tolerancia_atraso` int(11) DEFAULT 10,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 <<<<<<< HEAD
 -- Estrutura para tabela `eventos`
 --

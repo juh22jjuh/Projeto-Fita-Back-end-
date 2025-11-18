@@ -6,6 +6,14 @@ class CheckinModel {
         $this->pdo = $pdo;
     }
 
+    public function contarInscricoesUsuario($usuario_id) {
+        $sql = "SELECT COUNT(*) as total FROM checkins WHERE usuario_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$usuario_id]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)$resultado['total'];
+    }
+    
     public function gerarQRCodeToken($usuario_id, $evento_id) {
         $token = bin2hex(random_bytes(32));
         $sql = "INSERT INTO checkins (usuario_id, evento_id, qr_code_token) VALUES (?, ?, ?)";

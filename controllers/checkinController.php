@@ -76,6 +76,13 @@ class CheckinController {
             $this->jsonResponse(['error' => 'ID do evento é obrigatório'], 400);
         }
 
+        $totalInscricoes = $this->model->contarInscricoesUsuario($usuario_id);
+        $jaInscritoNeste = false;
+        
+        if ($totalInscricoes >= 8) {
+             $this->jsonResponse(['error' => 'Você atingiu o limite máximo de 8 inscrições em atividades.'], 403);
+        }
+
         $token = $this->model->gerarQRCodeToken($usuario_id, $evento_id);
         $this->jsonResponse([
             'qr_code_token' => $token,
